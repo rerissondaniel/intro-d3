@@ -1,0 +1,37 @@
+<html>
+<head>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <style>
+        rect{
+            fill: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <h2>Este é um novo html</h2>
+        </div>
+        <div class="row chart" id="newchart"></div>
+    </div>
+</body>
+
+<script type="text/javascript">
+    var data = [1, 2, 4, 8, 16, 32, 64];
+    var svg = d3.select('#newchart')
+                .append('svg')
+                .attr('width', 500)
+                .attr('height', 500);
+
+    svg.selectAll('rect')
+        .data(data)
+        .enter()
+            .append('rect')
+            .attr('x', (data, i) => i * 30)
+            .attr('y', (data) => 100 - data)
+            .attr('width', 10)
+            .attr('height', (data) => data);
+
+</script>
+</html>
