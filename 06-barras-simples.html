@@ -53,14 +53,16 @@
        * (Nem pense em fazer hardcoded :)).
        */
 
+      var alturaBarra = altura / dados.length;
+
       var barras = svg.selectAll('rect')
                       .data(dados)
                       .enter()
                         .append('rect')
                         .attr('x', 0) // Que tal uma função com dois parâmetros: d e i?
-                        .attr('y', function(data, idx){return idx * 30})
+                        .attr('y', function(data, idx){return idx * alturaBarra})
                         .attr('width', function(data){return data})
-                        .attr('height', 25);
+                        .attr('height', alturaBarra - 2);
                       
 
       /* Mais dicas :
