@@ -77,9 +77,9 @@
       /*
        * As escalas
        */
-      var x = d3.scaleBand(); // Configure essa escala com domain, range e padding
+      var x = d3.scaleBand().domain(dados.map((dado) => dado.letra)).rangeRound([0, larguraVis]).padding(0.2); // Configure essa escala com domain, range e padding
 
-      var y = d3.scaleLinear() // Configure essa escala com domain e range
+      var y = d3.scaleLinear().domain([d3.max(dados.map((dado) => dado.valor)), 0]).rangeRound([0, alturaVis]); // Configure essa escala com domain e range
                                // Lembre que uma escala pode converter de 1..10 -> 100..1
 
       // === ATÉ DAQUI ===
