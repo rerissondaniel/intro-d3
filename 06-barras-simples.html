@@ -60,8 +60,10 @@
                       .enter()
                         .append('rect')
                         .attr('x', 0) // Que tal uma função com dois parâmetros: d e i?
-                        .attr('y', function(data, idx){return idx * alturaBarra})
-                        .attr('width', function(data){return data})
+                        .attr('y', (data, idx) => idx * alturaBarra)
+                        .attr('width', function(data){
+                            return d3.scaleLinear().domain([d3.min(dados), d3.max(dados)]).rangeRound([0, largura])(data) + 3;
+                          })
                         .attr('height', alturaBarra - 2);
                       
 
