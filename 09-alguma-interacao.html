@@ -94,7 +94,8 @@
 
           var deptos = d3.selectAll("g.depto")
           
-          const deptoColor = d3.scaleQuantize().domain([0, d3.max(dadosLidos.map(d => d.MATRICULAS))]).range(colorbrewer.Reds[9]);
+          let dimensaoAtual = "MATRICULAS";
+          let deptoColor = d3.scaleQuantize().domain([0, d3.max(dadosLidos.map(d => d[dimensaoAtual]))]).range(colorbrewer.Reds[9]);
 
           deptos
             .append("circle")
@@ -115,7 +116,7 @@
               .style("font-weight", p => p.UORG_LOTACAO === d.UORG_LOTACAO ? "bold" : "normal");
               d3.selectAll("circle")
               .transition().duration(700)
-              .style("fill", p => p.UORG_LOTACAO === d.UORG_LOTACAO ? deptoColor(p.MATRICULAS) : "steelblue");
+              .style("fill", p => p.UORG_LOTACAO === d.UORG_LOTACAO ? deptoColor(d[dimensaoAtual]) : "steelblue");
           }
 
           deptos.on("mouseout", mouseSaiuCirculo);
@@ -143,7 +144,9 @@
               .html(d => d);
 
           function botaoClicado(dimensao) {
+            dimensaoAtual = dimensao;
             var maxValue = d3.max(dadosLidos, d => parseFloat(d[dimensao]))
+            deptoColor = d3.scaleQuantize().domain([0, maxValue]).range(colorbrewer.Reds[9]);
             var radiusScale = d3.scaleLinear()
                             .domain([ 0, maxValue ])
                             .range([ 2, 25 ])
