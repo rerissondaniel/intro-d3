@@ -93,10 +93,12 @@
                                           ")")
 
           var deptos = d3.selectAll("g.depto")
+          
+          const deptoColor = d3.scaleQuantize().domain([0, d3.max(dadosLidos.map(d => d.MATRICULAS))]).range(colorbrewer.Reds[9]);
 
           deptos
             .append("circle")
-            .attr("r", circuloInicial)
+            .attr("r", circuloInicial);
 
           deptos
             .append("text")
@@ -111,12 +113,18 @@
           function mouseNoCirculo(d){
             d3.selectAll("text")
               .style("font-weight", p => p.UORG_LOTACAO === d.UORG_LOTACAO ? "bold" : "normal");
+              d3.selectAll("circle")
+              .transition().duration(700)
+              .style("fill", p => p.UORG_LOTACAO === d.UORG_LOTACAO ? deptoColor(p.MATRICULAS) : "steelblue");
           }
 
           deptos.on("mouseout", mouseSaiuCirculo);
           function mouseSaiuCirculo(d){
             d3.selectAll("text")
-              .style("font-weight", "normal");
+              .style("font-weight", "normal")
+            d3.selectAll("circle")
+              .transition().duration(500)
+              .style("fill", "steelblue");
           }
 
 
@@ -141,7 +149,7 @@
                             .range([ 2, 25 ])
             d3.selectAll("g.depto")
               .select("circle")
-              //.transition().duration(700) // descomente aqui para testar
+              .transition().duration(700) // descomente aqui para testar
               .attr("r", d => radiusScale(d[dimensao]))
           }
         }
